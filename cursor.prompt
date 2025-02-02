@@ -1,0 +1,31 @@
+1 a template based on https://github.com/vincecao/react-chrome-extension-template-side-panel?utm_source=chatgpt.com
+2 a prompt to let cursor yolo mode do everything for you(Claude 3.5 Sonnet)
+3 adding ai search ability refer to https://chatglm.cn/main/alltoolsdetail
+
+
+detailed prompt:
+
+# Chrome Extension Project: Audio to MIDI Converter
+
+## Objective
+Develop a comprehensive Chrome browser extension capable of converting music playing on the current webpage into MIDI format.
+
+
+## Requirements
+
+### Development Environment & Toolchain
+- **Package Management**: Ensure that all necessary dependencies can be installed via `npm install`.
+- **Development Server**: Provide a development server that can be started with `npm run dev` for quick testing and iteration.
+- **Build Process**: Include a build script (e.g., `npm run build`) to package the final version of the extension suitable for uploading to the Chrome Web Store.
+
+### User Interface & Interaction
+- **Side Pane**: Implement a side pane interface for easy access to the extension's features while browsing.
+- **UI Design**: The design should be intuitive and visually appealing, providing clear instructions or buttons for users to select audio content for conversion.
+- **Responsive Design**: Ensure usability across different screen resolutions and devices.
+
+### Core Functionality - Audio to MIDI Conversion
+- **Audio Detection**: Ability to detect and work with currently playing audio streams or specified audio elements on the webpage.
+- **Advanced Processing**: Utilize sophisticated audio processing technologies (e.g., pitch detection algorithms) to convert audio data into MIDI format.
+- **Customization Options**: Offer adjustable parameters such as sensitivity and range to optimize output quality according to user preferences.
+- **Export Feature**: Allow users to download the converted MIDI file and provide a preview option before downloading.
+
