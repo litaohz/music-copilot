@@ -13,10 +13,13 @@ class MusicDetector {
 
   private init() {
     console.log('Initializing MusicDetector');
-    // Check if we're on music.163.com
     
+    // Check for supported music platforms
     if (window.location.hostname.includes('music.163.com')) {
       this.setupNeteaseMusicDetection();
+    }
+    else if (window.location.hostname.includes('qq.com')) {
+      this.setupQQMusicDetection();
     }
     
     // Listen for messages from the background script
@@ -107,6 +110,44 @@ class MusicDetector {
   public detectMusic() {
     if (window.location.hostname.includes('music.163.com')) {
       this.detectNeteaseMusic();
+    }
+    else if (window.location.hostname.includes('qq.com')) {
+      this.detectQQMusic();
+    }
+  }
+
+  private setupQQMusicDetection() {
+    const observer = new MutationObserver(() => {
+      this.detectQQMusic();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    this.detectQQMusic();
+  }
+
+  private detectQQMusic() {
+    console.log('Detecting QQ music');
+    // Updated QQ Music selectors based on HTML structure
+    const audioElement = document.querySelector('audio') as HTMLAudioElement;
+    const titleElement = document.querySelector('.songlist__songname .songlist__songname_txt a') as HTMLElement;
+    const artistElement = document.querySelector('.songlist__artist .playlist__author') as HTMLElement;
+
+    if ((audioElement || titleElement)) {
+      const musicInfo: MusicInfo = {
+        title: titleElement?.textContent?.trim() || 'Unknown Title',
+        artist: artistElement?.textContent?.trim() || 'Unknown Artist',
+        url: audioElement?.src || '',
+        audioElement: audioElement
+      };
+
+      if (JSON.stringify(this.currentMusic) !== JSON.stringify(musicInfo)) {
+        this.currentMusic = musicInfo;
+        this.notifyMusicChange(musicInfo);
+      }
     }
   }
 }
